@@ -6,5 +6,6 @@
         <p><strong>Link:</strong> <a href="{{ $project->link }}" target="_blank">{{ $project->link }}</a></p>
         <p><strong>Data di Avvio:</strong> {{ $project->start_date }}</p>
         <p><strong>Data di Fine:</strong> {{ $project->end_date ?? 'Non specificata' }}</p>
+        <p><strong>Tipologia:</strong> {{ $project->type ? $project->type->name : 'N/A' }}</p>
     </div>
 @endsection
