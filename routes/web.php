@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ProjectController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,21 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('projects', ProjectController::class);
+});
+
+
+//come dire:
+// Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+//     // Rotte CRUD manuali
+//     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
+//     Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+//     Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
+//     Route::get('projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
+//     Route::get('projects/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+//     Route::put('projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
+//     Route::delete('projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+// });
