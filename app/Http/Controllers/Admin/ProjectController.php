@@ -66,16 +66,27 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'link' => 'required|url',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        $project->update($validated);
+
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiornato con successo!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto eliminato con successo!');
     }
 }
