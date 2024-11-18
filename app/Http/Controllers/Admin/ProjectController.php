@@ -22,7 +22,12 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+
+        //$types = Type::all();
+
+        //$technologies = Technology::all();
+
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -30,7 +35,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'link' => 'required|url',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        Project::create($validated);
+
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto creato con successo!');
     }
 
     /**
