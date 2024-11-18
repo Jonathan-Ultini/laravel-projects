@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TypeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +40,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 //     Route::put('projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
 //     Route::delete('projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 // });
+
+Route::resource('admin/types', TypeController::class)->middleware('auth');
