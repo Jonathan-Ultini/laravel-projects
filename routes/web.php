@@ -41,4 +41,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 //     Route::delete('projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 // });
 
-Route::resource('admin/types', TypeController::class)->middleware('auth');
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('types', TypeController::class);
+});
